@@ -60,42 +60,84 @@ function AddEdit(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="row">
-                <div className="mb-3 col">
-                    <label className="form-label">First Name</label>
-                    <input name="firstName" type="text" {...register('firstName')} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.firstName?.message}</div>
-                </div>
-                <div className="mb-3 col">
-                    <label className="form-label">Last Name</label>
-                    <input name="lastName" type="text" {...register('lastName')} className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.lastName?.message}</div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="mb-3 col">
-                    <label className="form-label">Username</label>
-                    <input name="username" type="text" {...register('username')} className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.email?.message}</div>
-                </div>
-                <div className="mb-3 col">
-                    <label className="form-label">
-                        Password
-                        {user && <em className="ms-1">(Leave blank to keep the same password)</em>}
+        <div className="container mx-auto px-4 py-8 max-w-md">
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">{user ? 'Edit User' : 'Add User'}</h2>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="firstName">
+                        First Name
                     </label>
-                    <input name="password" type="password" {...register('password')} className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                    <div className="invalid-feedback">{errors.password?.message}</div>
+                    <input
+                        id="firstName"
+                        name="firstName"
+                        type="text"
+                        {...register('firstName')}
+                        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.firstName ? 'border-red-500' : ''}`}
+                    />
+                    {errors.firstName && <p className="text-red-500 text-xs italic">{errors.firstName.message}</p>}
                 </div>
-            </div>
-            <div className="mb-3">
-                <button type="submit" disabled={formState.isSubmitting} className="btn btn-primary me-2">
-                    {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                    Save
-                </button>
-                <button onClick={() => reset(formOptions.defaultValues)} type="button" disabled={formState.isSubmitting} className="btn btn-secondary">Reset</button>
-                <Link href="/users" className="btn btn-link">Cancel</Link>
-            </div>
-        </form>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="lastName">
+                        Last Name
+                    </label>
+                    <input
+                        id="lastName"
+                        name="lastName"
+                        type="text"
+                        {...register('lastName')}
+                        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.lastName ? 'border-red-500' : ''}`}
+                    />
+                    {errors.lastName && <p className="text-red-500 text-xs italic">{errors.lastName.message}</p>}
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+                        Username
+                    </label>
+                    <input
+                        id="username"
+                        name="username"
+                        type="text"
+                        {...register('username')}
+                        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.username ? 'border-red-500' : ''}`}
+                    />
+                    {errors.username && <p className="text-red-500 text-xs italic">{errors.username.message}</p>}
+                </div>
+                <div className="mb-6">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+                        Password
+                        {user && <span className="text-sm font-normal ml-1">(Leave blank to keep the same password)</span>}
+                    </label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        {...register('password')}
+                        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline ${errors.password ? 'border-red-500' : ''}`}
+                    />
+                    {errors.password && <p className="text-red-500 text-xs italic">{errors.password.message}</p>}
+                </div>
+                <div className="flex items-center justify-between">
+                    <button
+                        type="submit"
+                        disabled={formState.isSubmitting}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                        {formState.isSubmitting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                        Save
+                    </button>
+                    <button
+                        onClick={() => reset(formOptions.defaultValues)}
+                        type="button"
+                        disabled={formState.isSubmitting}
+                        className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                        Reset
+                    </button>
+                    <Link href="/users" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
+                        Cancel
+                    </Link>
+                </div>
+            </form>
+        </div>
     );
 }
